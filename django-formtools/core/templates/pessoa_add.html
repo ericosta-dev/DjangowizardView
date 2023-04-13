@@ -1,0 +1,9 @@
+{% block content %}
+  <h1>Adicionar Pessoa</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ wizard.management_form }}
+    {{ wizard.form }}
+    <input type="submit" value="Próximo">
+  </form>
+{% endblock %}

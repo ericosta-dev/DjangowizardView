@@ -1,0 +1,90 @@
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Conceitos do Django FormTools FormWizard</title>
+  </head>
+  <body>
+    <a href="{% url 'nova-pessoa' %}">Novo Cadastro</a>
+    <br>
+    <a href="{% url 'nova-pessoa-urls' %}">Novo Cadastro Templates</a>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+<h1>Conceitos do Django FormTools FormWizard</h1>
+<h2>O que é o Django FormTools FormWizard?</h2>
+<ul>
+  <li>O Django FormTools FormWizard é uma ferramenta para criação de formulários divididos em etapas.</li>
+  <li>Ele permite que você crie formulários com múltiplas páginas, onde cada página é um subconjunto de campos do formulário.</li>
+  <li>Ele também oferece recursos para validação, manipulação e armazenamento dos dados do formulário.</li>
+</ul>
+
+<h2>Como usar o Django FormTools FormWizard?</h2>
+<ul>
+  <li>Para usar o Django FormTools FormWizard, você precisa definir uma classe que herde de <code>SessionWizardView</code>.</li>
+  <li>Você deve implementar o método <code>get_template_names</code>, que retorna uma lista de formulários a serem exibidos nas etapas do wizard.</li>
+  <li>Você também pode implementar outros métodos para personalizar o comportamento do wizard, como <code>done</code>, que é chamado após a conclusão do wizard.</li>
+  <strong>
+      <li>Após a submissão do último formulário, os objetos só serão salvos no banco de dados se todos os formulários passarem na validação.</li>
+  </strong>
+</ul>
+
+<h2>Como criar os formulários?</h2>
+<ul>
+  <li>Você pode criar cada formulário separadamente, como faria normalmente com o Django Forms.</li>
+  <li>Você pode usar um template HTML para cada etapa do wizard, ou usar o mesmo template para todas as etapas.</li>
+</ul>
+
+<h2>Documentação Oficial</h2>
+<p>Para mais informações sobre o Django FormTools FormWizard, consulte a <a href="https://django-formtools.readthedocs.io/en/latest/wizard.html">documentação oficial</a>.</p>
+
+
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>Times</th>
+                <th>Endereços</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pessoa in object_list %}
+            <tr>
+                <td>{{ pessoa.nome }}</td>
+                <td>{{ pessoa.idade }}</td>
+                <td>
+                    <ul>
+                        {% for time in pessoa.time_set.all %}
+                        <li>{{ time.nome }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        {% for endereco in pessoa.endereco_set.all %}
+                        <li>{{ endereco.nome }}, {{ endereco.estado }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+  </body>
+
+    
+{% endblock %}

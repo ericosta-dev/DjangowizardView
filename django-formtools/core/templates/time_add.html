@@ -1,0 +1,10 @@
+{% block content %}
+  <h1>Adicionar Time</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ wizard.management_form }}
+    {{ wizard.form }}
+    <button type="submit" name="wizard_goto_step" value="{{ wizard.steps.prev }}">Anterior</button>
+    <input type="submit" value="Próximo">
+  </form>
+{% endblock %}
